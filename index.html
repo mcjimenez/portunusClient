@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<script defer src="auth.js"></script>
+<script defer src="test.js"></script>
+</head>
+<body>
+  <H1>Delegated Auth Test Page for Portunus</H1>
+  <p>
+    To use delegated auth to consume APIs just include the following script on your code:
+    <pre>
+      <code>
+        https://portunus.work-01.ether.igrupobbva/authHelper/js/auth.js?somerandomstring
+      </code>
+    </pre>
+    (note, the ?somerandomstring is added to avoid getting an old version because of caching) and then, when you want to consume an API:
+    <pre>
+    <code>
+      // Sample of an API consuming method
+      const consumeAPI = token => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://portunus.work-01.ether.igrupobbva');
+        xhr.setRequestHeader('x-jwt-auth', token);
+        // ...
+        xhr.send();
+      };
+
+      // And the actual way to consume the API is...
+      AuthHelper.ensureAuth().then(consumeAPI);
+    </code>
+  </pre>
+  </p>
+  <input type="button" id="testButton" value="Test Auth">
+  <ul id="output">
+
+  </ul>
+</body>
+</html>
