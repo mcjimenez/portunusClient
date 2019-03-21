@@ -57,6 +57,9 @@
   };
 
   let authDone = false;
+  let tries = 0;
+  const MAX_TRIES = 3;
+  
   const getToken = () => Request.sendXHR('GET', tokenURL). //, null, null, null, {"x-consumer-id": "xxx"}).
     then(result => result && result.accessToken && result || Promise.reject(new Error('UNAUTHORIZED')));
 
@@ -90,9 +93,11 @@
             return reject(new Error('POPUP_DENY'));
           }
           const int = setInterval(() => {
-            if (!authWindow.closed) {
+            tries++;
+            if (!authWindow.closed && tries < MAX_TRIES) {
               return;
             }
+            tries = 0;
             clearInterval(int);
             exports.removeEventListener('message', messageListener);
             authDone && (solve() || true) || reject(new Error('UNAUTHORIZED'));
