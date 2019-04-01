@@ -4,7 +4,7 @@
 
   //const server = new URL(document.currentScript.src).origin;
   const server = 'https://portunus.work-01.ether.igrupobbva';
-  const authURL = server + '/authHelper/index.html';
+  const authURL = server + '/v1/showAuth.html';
   const tokenURL = server + '/v1/token/giam';
 
   const debug = console;
